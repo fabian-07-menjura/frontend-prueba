@@ -1,6 +1,6 @@
 // components/GoogleMapWithSearch.tsx
 "use client";
-// componente de ubicacion
+
 import { useEffect, useRef, useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
@@ -51,6 +51,12 @@ const GoogleMapWithSearch: React.FC = () => {
             });
             setMarker(newMarker);
           }
+
+          // Zoom al lugar seleccionado
+          if (map) {
+            map.setZoom(12); // Puedes ajustar el valor del zoom aquí
+            map.panTo(place.geometry.location); // Centra el mapa en la nueva ubicación
+          }
         } else {
           alert("No se encontró la ubicación seleccionada.");
         }
@@ -88,6 +94,12 @@ const GoogleMapWithSearch: React.FC = () => {
               map: map,
             });
             setMarker(newMarker);
+          }
+
+          // Zoom al lugar encontrado
+          if (map) {
+            map.setZoom(12); // Ajusta el nivel de zoom según sea necesario
+            map.panTo(place.geometry.location); // Centra el mapa en la nueva ubicación
           }
         }
       } else {
