@@ -6,6 +6,8 @@ interface Store {
   total: number;
   contenidos: CarritoCompras;
   agregarcarrito: (producto: Producto) => void;
+  actualizarCantidadSelect: (id: Producto["id"], cantidad: number) => void;
+  removerProducto: (id: Producto["id"]) => void;
 }
 
 export const UseStore = create<Store>()(
@@ -42,6 +44,21 @@ export const UseStore = create<Store>()(
       set(() => ({
         contenidos,
       }));
+    },
+    actualizarCantidadSelect: (id, cantidadcomprar) => {
+      console.log(cantidadcomprar);
+      const contenidos = get().contenidos.map((item) =>
+        item.IdProducto === id ? { ...item, cantidadcomprar } : item
+      );
+      set(() => ({ contenidos }));
+    },
+    removerProducto: (id) => {
+      console.log("eliminando ...", id);
+      const contenidos = get().contenidos.filter(
+        (item) => item.IdProducto !== id
+      );
+      console.log(contenidos);
+      set(() => ({ contenidos }));
     },
   }))
 );

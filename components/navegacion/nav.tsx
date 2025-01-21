@@ -13,16 +13,22 @@ export default async function MainNav() {
 
       <nav className="flex flex-col md:flex-row gap-2 items-center mt-5 md:mt-0">
         <Link
+          href={`/`}
+          className="text-white hover:text-green-400 font-bold p-2"
+        >
+          Home
+        </Link>
+        <Link
           href={`/busos`}
           className="text-white hover:text-green-400 font-bold p-2"
         >
           Busos
         </Link>
         <Link
-          href={`/`}
+          href={`/ubicacion`}
           className="text-white hover:text-green-400 font-bold p-2"
         >
-          Home
+          Ubicacion
         </Link>
       </nav>
     </header>

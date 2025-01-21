@@ -1,8 +1,13 @@
 import { CartItem } from "@/src/schemas";
 import Image from "next/image";
 import { formatDinero } from "../../src/utils";
+import { UseStore } from "@/src/store";
 
 export default function ItemCarritoCompras({ item }: { item: CartItem }) {
+  const actualizarCantSelect = UseStore(
+    (state) => state.actualizarCantidadSelect
+  );
+  const removerProducto = UseStore((state) => state.removerProducto);
   return (
     <li className="flex items-center space-x-6 py-6 relative">
       <div className="h-24 w-24">
@@ -17,9 +22,11 @@ export default function ItemCarritoCompras({ item }: { item: CartItem }) {
         <h3 className="text-gray-900">{item.nombre}</h3>
         <p>{formatDinero(item.precio)}</p>
         <select
-          className="w-32 text-center p-2 rounded-lg bg-white"
+          className="w-32 text-center p-2 rounded-lg bg-gray-400 text-white"
           value={item.cantidadcomprar}
-          onChange={() => {}}
+          onChange={(e) =>
+            actualizarCantSelect(item.IdProducto, +e.target.value)
+          }
         >
           {Array.from({ length: item.cantidad }, (_, index) => index + 1).map(
             (num) => (
@@ -31,7 +38,7 @@ export default function ItemCarritoCompras({ item }: { item: CartItem }) {
         </select>
       </div>
       <div className="absolute top-10 -right-0">
-        <button type="button" onClick={() => {}}>
+        <button type="button" onClick={() => removerProducto(item.IdProducto)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
